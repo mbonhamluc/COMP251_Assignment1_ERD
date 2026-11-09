@@ -65,3 +65,92 @@ Once you have completed both of the items above, you will need to submit the lin
 - [Make a ReadMe file Web-based Editor](https://www.makeareadme.com/)
 - [Draw.io Web-based diagramming tool](https://app.diagrams.net/)
 - [Creating Entity Relationship Diagrams using Draw.io](https://www.youtube.com/watch?v=lAtCySGDD48)
+
+## Completed Work
+
+### Requirements
+
+#### Entity Descriptions
+
+- **CONTACT** is basic contact information for a person who may be a representative for a **PROPERTY**, A prospective renter in a **RENTERPROFILE**, or a **PROPERTYAGENT**. The **CONTACT** has:
+  - A `ContactID` that provides a unique identifier for the **CONTACT**.
+  - A `FirstName` that is the first part of the name of the **CONTACT**.
+  - A `LastName` that is the second part of the name of the **CONTACT**.
+  - An `email` address that allows someone to connect with the **CONTACT**.
+  - A `phone` number that is the number someone can use to connect with the **CONTACT**.
+  - An `AddressLine1` which is the first line of the **CONTACT** address. Usually contains a street number and street.
+  - An `AddressLine2` which is the second line of the **CONTACT** address. Usually contains an apartment number and is optional.
+  - An `AddressCity` that is the city of the **CONTACT** address.
+  - An `AddressState` which is the state of the **CONTACT** address. 
+  - An `AddressZip` that is the zip code of the **CONTACT** address. 
+- **PROPERTY** is a luxury apartment offered on the MPLSRenters.com website. The **PROPERTY** has:
+  - A `PropertyID` that provides a unique identifier for each **PROPERTY**
+  - A `ContactID` that is the unique id in the **CONTACT** table for the representative for the **PROPERTY**.
+  - A `ClassificationID` that is the unique id in the **CLASSIFICATION** table for the **PROPERTY**
+  - A `ShortDescription` that briefly describes the **PROPERTY**.
+  - A `LongDescription` that describes the property in glonger form. This field may also contain amenties offered by the **PROPERTY** that are not in the pre-defined **AMENITY** list.
+  - A `Longitude` which is one of two decimal numbers that simplifies finding the **PROPERTY** through a digital map via the use of digital coridinates.
+  - A `Latitude` which is one of two decimal numbers that simplifies finding the **PROPERTY** through a digital map via the use of digital coridinates.
+  - A `MinimumRent` which is a decimal number with two digits of precision that is the lowest rent amount for the **PROPERTY**.
+  - A `MaximumRent` which is a decimal number with two digits of precision that is the highest rent amount for the **PROPERTY**.
+  - `SqFoot` is a whole number that is the square footage of the property and used in calculating **CLASSIFICATION** as assigned.
+- **AMENITY** is a pre-defined list of features or services offered by a **PROPERTY** or that may be of interest to a **RENTER**. The **AMENITY** has:
+  - An `AmenityID` that provides a unique identifier for each **AMENITY**
+  - A `Name` that identifies it.
+  - A `Description` that explains what the **AMENITY** is.
+- **PROPERTYAMENITY** connects **PROPERTY**s to associated **AMENITY**s that they offer. It contains fields that associate including:
+  - A `PropertyID` which identifies the specific **PROPERTY** in this association.
+  - An `AmenityID` which identifies the specific **AMENITY** in this association or the amenity the property offers.
+- **RENTER** is a prospective renter that has signed up to use the website and is looking to find a **PROPERTY** and expresses interest in **AMENITY**s. The **RENTER** has:
+  - A `RenterProfileID` that provides a unique identifier for each **RENTER**
+  - A `ContactID` that is the unique id in the **CONTACT** table for the **RENTER**
+  - A `ClassificationID` that is the unique id in the **CLASSIFICATION** table for the **RENTER**
+  - A `DecisionDate` which is the date the **RENTER** plans to make a decision by.
+  - A `BedroomNumber` which is the number of bedrooms the **RENTER** needs.
+  - A `BathroomNumber` which is the number of bathrooms the **RENTER** needs.
+  - A `MinimumRent` which is a decimal number with two digits of precision that is the lowest rent amount the prospective **RENTER** is willing to spend.
+  - A `MaximumRent` which is a decimal number with two digits of precision that is the highest rent amount the prospective **RENTER** is willing to spend.
+- **RENTERAMENITY** connects **RENTER**s to associated **AMENITY**s they are interested in. It contains fields that associate including:
+  - A `RenterID` which identifies the specific prospective **RENTER** in this association.
+  - An `AmenityID` which identifies the specific **AMENITY** in this association or the amenity the prosepective renter has interest in.
+- **RENTERPROPERTY** connects **RENTER**s to associated **PROPERTY**s they are interested in. It contains fields that associate including:
+  - A `RenterID` which identifies the specific prospective **RENTER** in this association.
+  - An `PropertyID` which identifies the specific **PROPERTY** in this association or the property the prosepective renter has interest in.
+- **PROPERTYAGENT** is an agent who works to sale rental units on behalf of a **PROPERTY**. The **PROPERTYAGENT** has:
+  - A `PropertyAgentID` that provides a unique identifier for each **PROPERTYAGENT**
+  - `ContactID` that is the unique id in the **CONTACT** table for the **PROPERTYAGENT**
+  - A `PropertyID` which identifies which **PROPERTY** this **PROPERTYAGENT** can sell for.
+  - `IsActive` identifies if the **PROPERTYAGENT** can use the system based on system logic that identifies is monthly payment was recieved on time.
+- **CLASSIFICATION** is a lookup table that defines the three preset luxury categories a **RENTER** profile or a **PROPERTY** can receive. A renter profile’s classification is based on the renter’s desired monthly rent range. A property’s classification is based on its selected amenities, square footage, and monthly rent range.
+  - `ClassificationID` uniquely identifies the category using a value of A, B, or C.
+  - `Title` names the class using the values “High Luxury,” “High-Mid Luxury,” or “Luxury” respectively.
+  - `Description` explains what the category means.
+
+#### Relationships
+
+- A **CONTACT** may <ins>represent</ins> zero or more **PROPERTIES**.	Each **PROPERTY** must be <ins>represented</ins> by exactly one **CONTACT**.
+- A **CONTACT** may <ins>belong</ins> to zero or one **RENTER** profile.	Each **RENTER** profile must <ins>belong</ins> to exactly one **CONTACT**.
+- A **CONTACT** may <ins>belong</ins> to zero or one **PROPERTYAGENT** record.	Each **PROPERTYAGENT** record must <ins>belong</ins> to exactly one **CONTACT**.
+- A **PROPERTY** may <ins>offer</ins> zero to many **AMENITY**s; An **AMENITY** may be <ins>offered</ins> at zero to many **PROPERTY**s.
+- A **RENTER** may be <ins>interested</ins> in zero to many **AMENITY**s; An **AMENITY** may be of <ins>interest</ins> to zero to many **RENTER**s.
+- A **RENTER** may be <ins>interested</ins> in zero to many **PROPERTY**s; A **PROPERTY** many be of <ins>interest</ins> to zero to many **RENTERS**.
+- A **PROPERTY** may be <ins>represented by</ins> zero or more **PROPERTYAGENTS**; A **PROPERTYAGENT** must <ins>represent</ins> exactly one **PROPERTY**.
+- A **CLASSIFICATION** may <ins>apply</ins> to zero or more **RENTER** profiles. Each **RENTER** profile may <ins>apply</ins> to zero or one **CLASSIFICATION**.
+- A **CLASSIFICATION** may <ins>apply</ins> to zero or more **PROPERTIES**. Each **PROPERTY** may <ins>apply</ins> to zero or one **CLASSIFICATION**.
+
+#### Assumptions
+
+- Is the `FirstNName` and `LastName` associated with a **PROPERTY** the name of the representative of that property and not the name of the **PROPERTY** itself? **YES**
+- Are `MinimumRent` and `MaximumRent` always in US dollars? **YES**
+- Are **PROPERTY** addresses always within the US? **YES**
+- Can a **PROPERTY** have zero **AMENITY**s? **YES**
+- Can a prospective **RENTER** have no **AMENITY**s associated with them? **YES**
+- Though a renter may have the same information as a **PROPERTY**, this doesn't apply to the attibutes `ShortDescription`, `LongDescription`, `Longitude`, or `Latitude`, correct? **YES**
+- A **PROPERTYAGENT** can only be associated with one **PROPERTY**. They can not sell for more than that one, correct? **YES**
+- A **PROPERTYAGENT** should have **CONTACT** information like name, address, email, and the like, correct? **YES**
+- Though `IsActive` is determined programatically in the system, it is fine to persist the systemic result in a table for ease of processing and simpler reporting? **YES**
+- For **CLASSIFICATION**, the use of the one letter A, B, or C is sufficent as an identifier? **YES**
+- You stated that a **RENTER** or **PROPERTY** can recieve a **CLASSIFICATION**. Can I assum that the use of the word <ins>can</ins> means that it might not? **YES**
+- Though the assignment of a **CLASSIFICATION** to a **RENTER** or **PROPERTY** is determined programatically in the system using the logic you specified, it is fine to persist the systemic result in a table for ease of processing and simpler reporting? **YES**
+
+### Entity Relationship Diagram(ERD)
