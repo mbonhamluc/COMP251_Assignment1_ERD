@@ -182,4 +182,4 @@ Once you have completed both of the items above, you will need to submit the lin
 
 ### Entity Relationship Diagram(ERD)
 
-![Entity Relationship Diagram(ERD)](https://github.com/mbonhamluc/COMP251_Assignment1_ERD/blob/main/README.md/Bonham-Assignment1.png)
+![Entity Relationship Diagram(ERD)](https://github.com/mbonhamluc/COMP251_Assignment1_ERD/blob/main/Bonham-Assignment1.png)
