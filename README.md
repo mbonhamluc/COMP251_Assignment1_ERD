@@ -92,8 +92,8 @@ Once you have completed both of the items above, you will need to submit the lin
   - A `LongDescription` that describes the property in glonger form. This field may also contain amenties offered by the **PROPERTY** that are not in the pre-defined **AMENITY** list.
   - A `Longitude` which is one of two decimal numbers that simplifies finding the **PROPERTY** through a digital map via the use of digital coridinates.
   - A `Latitude` which is one of two decimal numbers that simplifies finding the **PROPERTY** through a digital map via the use of digital coridinates.
-  - A `MinimumRent` which is a decimal number with two digits of precision that is the lowest rent amount for the **PROPERTY**.
-  - A `MaximumRent` which is a decimal number with two digits of precision that is the highest rent amount for the **PROPERTY**.
+  - A `MinimumRent` which is a decimal number with two decimal places that is the lowest rent amount for the **PROPERTY**.
+  - A `MaximumRent` which is a decimal number with two decimal places that is the highest rent amount for the **PROPERTY**.
   - `SqFoot` is a whole number that is the square footage of the property and used in calculating **CLASSIFICATION** as assigned.
 - **AMENITY** is a pre-defined list of features or services offered by a **PROPERTY** or that may be of interest to a **RENTER**. The **AMENITY** has:
   - An `AmenityID` that provides a unique identifier for each **AMENITY**
@@ -109,8 +109,8 @@ Once you have completed both of the items above, you will need to submit the lin
   - A `DecisionDate` which is the date the **RENTER** plans to make a decision by.
   - A `BedroomNumber` which is the number of bedrooms the **RENTER** needs.
   - A `BathroomNumber` which is the number of bathrooms the **RENTER** needs.
-  - A `MinimumRent` which is a decimal number with two digits of precision that is the lowest rent amount the prospective **RENTER** is willing to spend.
-  - A `MaximumRent` which is a decimal number with two digits of precision that is the highest rent amount the prospective **RENTER** is willing to spend.
+  - A `MinimumRent` which is a decimal number with two decimal places that is the lowest rent amount the prospective **RENTER** is willing to spend.
+  - A `MaximumRent` which is a decimal number with two decimal places that is the highest rent amount the prospective **RENTER** is willing to spend.
 - **RENTERAMENITY** connects **RENTER**s to associated **AMENITY**s they are interested in. It contains fields that associate including:
   - A `RenterID` which identifies the specific prospective **RENTER** in this association.
   - An `AmenityID` which identifies the specific **AMENITY** in this association or the amenity the prosepective renter has interest in.
@@ -148,20 +148,24 @@ Once you have completed both of the items above, you will need to submit the lin
 - A **CONTACT** may <ins>represent</ins> zero or more **PROPERTIES**.	Each **PROPERTY** must be <ins>represented</ins> by exactly one **CONTACT**.
 - A **CONTACT** may <ins>belong</ins> to zero or one **RENTER** profile.	Each **RENTER** profile must <ins>belong</ins> to exactly one **CONTACT**.
 - A **CONTACT** may <ins>belong</ins> to zero or one **AGENT** record.	Each **AGENT** record must <ins>belong</ins> to exactly one **CONTACT**.
-- A **PROPERTY** may <ins>offer</ins> zero to many **AMENITY**s; An **AMENITY** may be <ins>offered</ins> at zero to many **PROPERTY**s.
-- A **RENTER** may be <ins>interested</ins> in zero to many **AMENITY**s; An **AMENITY** may be of <ins>interest</ins> to zero to many **RENTER**s.
-- A **RENTER** may be <ins>interested</ins> in zero to many **PROPERTY**s; A **PROPERTY** many be of <ins>interest</ins> to zero to many **RENTERS**.
-- A **PROPERTY** may be <ins>represented</ins> by zero or more **AGENT**s. Each **AGENT** must <ins>represent</ins> one or more **PROPERTIES**.
+- A **PROPERTY** may <ins>have</ins> zero or more **PROPERTYAMENITY** records. Each **PROPERTYAMENITY** record must <ins>have</ins> exactly one **PROPERTY**.
+- An **AMENITY** may <ins>have</ins> zero or more **PROPERTYAMENITY** records. Each **PROPERTYAMENITY** record must <ins>have</ins> exactly one **AMENITY**.
+- A **RENTER** may be <ins>interested in</ins> zero or more amenities through **RENTERAMENITY**. Each **RENTERAMENITY** identifies exactly one **RENTER** who is <ins>interested in</ins> its amenity.
+- An **AMENITY** may <ins>interest</ins> zero or more renters through **RENTERAMENITY**. Each **RENTERAMENITY** identifies exactly one **AMENITY** that <ins>interests</ins> its renter.
+- A **RENTER** may be <ins>interested in</ins> zero or more properties through **RENTERPROPERTY**. Each **RENTERPROPERTY** identifies exactly one **RENTER** who is <ins>interested in</ins> its property.
+- A **PROPERTY** may <ins>interest</ins> zero or more renters through **RENTERPROPERTY**. Each **RENTERPROPERTY** identifies exactly one **PROPERTY** that <ins>interests</ins> its renter.
+- A **PROPERTY** may be <ins>represented</ins> by zero or more agents through **AGENTPROPERTY**. Each **AGENTPROPERTY** identifies exactly one **PROPERTY** <ins>represented</ins> by its agent.
+- An **AGENT** must <ins>represent</ins> one or more properties through **AGENTPROPERTY**. Each **AGENTPROPERTY** identifies exactly one **AGENT** who <ins>represents</ins> its property.
 - A **CLASSIFICATION** may <ins>apply</ins> to zero or more **RENTER** profiles. Each **RENTER** profile may <ins>apply</ins> to zero or one **CLASSIFICATION**.
 - A **CLASSIFICATION** may <ins>apply</ins> to zero or more **PROPERTIES**. Each **PROPERTY** may <ins>apply</ins> to zero or one **CLASSIFICATION**.
 - A **AGENT** must <ins>select</ins> exactly one **AGENTPACKAGE**. An **AGENTPACKAGE** may be <ins>selected</ins> by zero or more AGENTS.
-- A **AGENT** may <ins>make</ins> zero or more **OFFER**a. Each **OFFER** must be <ins>made</ins> by exactly one **AGENT**.
+- A **AGENT** may <ins>make</ins> zero or more **OFFER**s. Each **OFFER** must be <ins>made</ins> by exactly one **AGENT**.
 - A **RENTER** may <ins>receive</ins> zero or more **OFFER**s. Each **OFFER** must be <ins>received by</ins> exactly one **RENTER**.
 - A **PROPERTY** may <ins>have</ins> zero or more **OFFER**s. Each **OFFER** must <ins>have</ins> exactly one **PROPERTY**.
 
 #### Assumptions
 
-- Is the `FirstNName` and `LastName` associated with a **PROPERTY** the name of the representative of that property and not the name of the **PROPERTY** itself? **YES**
+- Do the first name, last name, email, phone, and address listed for a **PROPERTY** belong to its representative? **YES**
 - Are `MinimumRent` and `MaximumRent` always in US dollars? **YES**
 - Are **PROPERTY** addresses always within the US? **YES**
 - Can a **PROPERTY** have zero **AMENITY**s? **YES**
@@ -177,3 +181,5 @@ Once you have completed both of the items above, you will need to submit the lin
 - May an **AGENT** make an **OFFER** only for a **PROPERTY** they represent? **YES**
 
 ### Entity Relationship Diagram(ERD)
+
+![Entity Relationship Diagram(ERD)](https://github.com/mbonhamluc/COMP251_Assignment1_ERD/blob/main/README.md/Bonham-Assignment1.png)
